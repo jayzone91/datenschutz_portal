@@ -10,13 +10,13 @@ export default function useAdmin() {
 
   useEffect(() => {
     async function x() {
-      if (session == null) return false;
-      if (session.user == null) return false;
+      if (session == null) return;
+      if (session.user == null) return;
 
       const User = await Finder.mutateAsync({
         id: session.user.id,
       });
-      if (User == null) return false;
+      if (User == null) return;
       if (User.isAdmin) setIsAdmin(true);
     }
     void x();
