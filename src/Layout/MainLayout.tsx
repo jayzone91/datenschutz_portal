@@ -59,6 +59,12 @@ export default function MainLayout({
                   </NavLink>
                 </>
               )}
+              <NavLink as={Link} href="/">
+                Datenschutz
+              </NavLink>
+              <NavLink as={Link} href="/">
+                Impressum
+              </NavLink>
             </Nav>
           </NavbarCollapse>
           <NavbarCollapse className="justify-content-end">
