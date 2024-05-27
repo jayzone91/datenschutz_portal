@@ -34,7 +34,7 @@ export default function MainLayout({
       style={{ minHeight: "100vh" }}
     >
       {/* Navbar */}
-      <Navbar bg="dark" expand="lg">
+      <Navbar bg="dark" expand="xl">
         <Container>
           <NavbarBrand href="/">{MAIN_TITLE}</NavbarBrand>
           <NavbarToggle id="main-menu" />
@@ -54,7 +54,7 @@ export default function MainLayout({
                   <NavLink as={Link} href="/">
                     Tests verwalten
                   </NavLink>
-                  <NavLink as={Link} href="/">
+                  <NavLink as={Link} href="/admin/user">
                     Benutzer verwalten
                   </NavLink>
                 </>
@@ -65,9 +65,24 @@ export default function MainLayout({
               <NavLink as={Link} href="/">
                 Impressum
               </NavLink>
+              {session?.user && (
+                <NavLink
+                  as={Link}
+                  href="/profile/edit"
+                  className="d-block d-xl-none"
+                >
+                  Benutzer
+                </NavLink>
+              )}
+              <NavLink
+                className="d-block d-xl-none"
+                onClick={() => (session?.user ? void signOut() : void signIn())}
+              >
+                {session?.user ? "Abmelden" : "Anmelden"}
+              </NavLink>
             </Nav>
           </NavbarCollapse>
-          <NavbarCollapse className="justify-content-end">
+          <NavbarCollapse className="justify-content-end d-none d-xl-block">
             {/* TODO: Abmelden und Profil Knopf einfügen */}
             <NavbarText>
               {session?.user ? (
@@ -80,10 +95,7 @@ export default function MainLayout({
                     }
                     menuVariant="dark"
                   >
-                    <NavDropdown.Item
-                      as={Link}
-                      href={"/profile/edit/" + session.user.id}
-                    >
+                    <NavDropdown.Item as={Link} href={"/profile/edit"}>
                       Benutzer
                     </NavDropdown.Item>
                     <NavDropdown.Divider />

@@ -15,6 +15,9 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
+  getAll: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.user.findMany();
+  }),
   find: protectedProcedure
     .input(
       z.object({
@@ -33,6 +36,7 @@ export const userRouter = createTRPCRouter({
       z.object({
         id: z.string(),
         name: z.string(),
+        isAdmin: z.boolean().optional(),
       })
     )
     .mutation(({ input, ctx }) => {
@@ -42,6 +46,7 @@ export const userRouter = createTRPCRouter({
         },
         data: {
           name: input.name,
+          isAdmin: input.isAdmin ?? false,
         },
       });
     }),

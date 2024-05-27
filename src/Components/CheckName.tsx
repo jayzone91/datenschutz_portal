@@ -13,10 +13,7 @@ export default function CheckName() {
           Bitte das Profil bearbeiten und einen Namen vergeben.
         </p>
         <div className="d-flex justify-content-center">
-          <Link
-            className="btn btn-primary btn-lg mb-3"
-            href={"profile/edit/" + session?.user.id}
-          >
+          <Link className="btn btn-primary btn-lg mb-3" href={"profile/edit"}>
             Jetzt Namen vergeben
           </Link>
         </div>

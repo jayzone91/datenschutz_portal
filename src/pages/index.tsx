@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import NotAllowed from "~/Components/NotAllowed";
+import useAdmin from "~/Hooks/useAdmin";
 import useFirma from "~/Hooks/useFirma";
 import { MAIN_TITLE } from "~/conf";
 
 export default function Home() {
   const allowed = useFirma();
+  const isAdmin = useAdmin();
 
   return (
     <>
@@ -27,6 +29,7 @@ export default function Home() {
         <Container className="mt-3">
           {!allowed && <NotAllowed />}
           {allowed && <></>}
+          {isAdmin && <>ADMIN</>}
         </Container>
       </main>
     </>

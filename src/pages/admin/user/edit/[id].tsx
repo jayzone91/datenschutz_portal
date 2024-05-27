@@ -10,6 +10,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import Loading from "~/Components/Loading";
+import NotAllowed from "~/Components/NotAllowed";
 import useAdmin from "~/Hooks/useAdmin";
 import { MAIN_TITLE } from "~/conf";
 import { api } from "~/utils/api";
@@ -25,6 +26,8 @@ export default function EditUserProfile() {
 
   const [Name, setName] = useState<string | undefined>(undefined);
   const [Mail, setMail] = useState<string | undefined>(undefined);
+  const [Admin, setAdmin] = useState<boolean>(false);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,6 +40,7 @@ export default function EditUserProfile() {
     if (User.data.email) {
       setMail(User.data.email);
     }
+    setAdmin(User.data.isAdmin);
   }, [User.data]);
 
   const handleSave = async () => {
@@ -47,6 +51,7 @@ export default function EditUserProfile() {
     const res = await UserUpdate.mutateAsync({
       id: id as string,
       name: Name,
+      isAdmin: Admin,
     });
 
     if (res) {
@@ -54,6 +59,8 @@ export default function EditUserProfile() {
       location.reload();
     }
   };
+
+  if (!isAdmin) return <NotAllowed />;
 
   if (User.isLoading) return <Loading />;
 
@@ -94,6 +101,13 @@ export default function EditUserProfile() {
                 onChange={(e) => setMail(e.target.value)}
               />
             </FloatingLabel>
+            <Form.Check
+              type="switch"
+              id="admin"
+              label="Admin"
+              checked={Admin}
+              onChange={() => setAdmin((prev) => !prev)}
+            />
             <Button
               variant="primary"
               type="submit"

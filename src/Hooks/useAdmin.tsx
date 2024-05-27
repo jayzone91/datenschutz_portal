@@ -20,8 +20,7 @@ export default function useAdmin() {
       if (User.isAdmin) setIsAdmin(true);
     }
     void x();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [Finder, session]);
 
   return isAdmin;
 }
